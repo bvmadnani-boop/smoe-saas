@@ -2,66 +2,82 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl
+
+  // API routes et assets publics — bypass total du middleware
+  if (
+    pathname.startsWith('/api/') ||
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/favicon')
+  ) {
+    return NextResponse.next()
+  }
+
   let supabaseResponse = NextResponse.next({ request })
-
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll()
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
-          )
-          supabaseResponse = NextResponse.next({ request })
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
-          )
-        },
-      },
-    }
-  )
-
   let user = null
+
   try {
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          getAll() { return request.cookies.getAll() },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+            supabaseResponse = NextResponse.next({ request })
+            cookiesToSet.forEach(({ name, value, options }) =>
+              supabaseResponse.cookies.set(name, value, options)
+            )
+          },
+        },
+      }
+    )
     const { data } = await supabase.auth.getUser()
     user = data.user
   } catch (_) {
     user = null
   }
 
-  const { pathname } = request.nextUrl
-  const isAuthPage  = pathname.startsWith('/login')
-  const isLanding   = pathname === '/'
-  const isPublic    = pathname.startsWith('/_next') ||
-                      pathname.startsWith('/favicon') ||
-                      pathname.startsWith('/api/') ||
-                      isLanding
+  const isAuthPage = pathname.startsWith('/login')
+  const isLanding  = pathname === '/'
+  const isPublic   = isLanding
 
-  // Non authentifié → login (sauf landing et pages publiques)
   if (!user && !isAuthPage && !isPublic) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
-  // Authentifié sur /login → rediriger selon le rôle
   if (user && isAuthPage) {
-    const { data: profile } = await supabase
-      .from('user_profiles')
-      .select('role, organization_id')
-      .eq('id', user.id)
-      .single()
-
-    if (profile?.role === 'super_admin') {
-      return NextResponse.redirect(new URL('/admin', request.url))
-    }
-    if (profile?.organization_id) {
-      return NextResponse.redirect(
-        new URL(`/org/${profile.organization_id}`, request.url)
+    try {
+      const supabase = createServerClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        {
+          cookies: {
+            getAll() { return request.cookies.getAll() },
+            setAll(cookiesToSet) {
+              cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+              supabaseResponse = NextResponse.next({ request })
+              cookiesToSet.forEach(({ name, value, options }) =>
+                supabaseResponse.cookies.set(name, value, options)
+              )
+            },
+          },
+        }
       )
-    }
+      const { data: profile } = await supabase
+        .from('user_profiles')
+        .select('role, organization_id')
+        .eq('id', user.id)
+        .single()
+
+      if (profile?.role === 'super_admin') {
+        return NextResponse.redirect(new URL('/admin', request.url))
+      }
+      if (profile?.organization_id) {
+        return NextResponse.redirect(new URL(`/org/${profile.organization_id}`, request.url))
+      }
+    } catch (_) {}
   }
 
   return supabaseResponse
