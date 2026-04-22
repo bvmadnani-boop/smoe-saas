@@ -1,9 +1,28 @@
 // ISO 21001 Chapitre 7 — Ressources de support
 
-// ─── Personnel §7.1.2 / §7.2 / §7.3 ─────────────────────────────────────────
+// ─── Organigramme ANEAQ — modèle pré-chargé ─────────────────────────────────
+
+export const ANEAQ_POSITIONS = [
+  // Niveau 1
+  { key: 'dg',       title: "Directeur(trice) Général(e)",                          level: 1, parent_key: null,    order_index: 0 },
+  // Niveau 2
+  { key: 'dir_peda', title: "Directeur(trice) Pédagogique",                         level: 2, parent_key: 'dg',   order_index: 0 },
+  { key: 'daf',      title: "Directeur(trice) Administratif(ve) & Financier(ère)",  level: 2, parent_key: 'dg',   order_index: 1 },
+  { key: 'rq',       title: "Responsable Qualité",                                  level: 2, parent_key: 'dg',   order_index: 2 },
+  { key: 'rsi',      title: "Responsable Systèmes d'Information",                   level: 2, parent_key: 'dg',   order_index: 3 },
+  // Niveau 3
+  { key: 'coord',    title: "Coordinateur(trice) Pédagogique",                      level: 3, parent_key: 'dir_peda', order_index: 0 },
+  { key: 'scol',     title: "Chargé(e) de Scolarité & Examens",                     level: 3, parent_key: 'dir_peda', order_index: 1 },
+  { key: 'compta',   title: "Agent Comptable",                                       level: 3, parent_key: 'daf', order_index: 0 },
+  { key: 'comm',     title: "Chargé(e) de Communication",                           level: 3, parent_key: 'daf', order_index: 1 },
+  { key: 'career',   title: "Chargé(e) Career Centre",                              level: 3, parent_key: 'rq',  order_index: 0 },
+  { key: 'maint',    title: "Agent de Maintenance",                                  level: 3, parent_key: 'rsi', order_index: 0 },
+] as const
+
+// ─── Personnel permanent §7.1.2 / §7.2 / §7.3 ───────────────────────────────
 
 export type PersonnelStatus   = 'actif' | 'inactif' | 'conge' | 'essai'
-export type PersonnelContract = 'cdi' | 'cdd' | 'vacataire' | 'stagiaire' | 'benevole'
+export type PersonnelContract = 'cdi' | 'cdd' | 'temps_partiel'
 
 export const PERSONNEL_STATUS_META: Record<PersonnelStatus, { label: string; cls: string }> = {
   actif:   { label: 'Actif',           cls: 'bg-emerald-50 text-emerald-600 border-emerald-200' },
@@ -13,26 +32,10 @@ export const PERSONNEL_STATUS_META: Record<PersonnelStatus, { label: string; cls
 }
 
 export const CONTRACT_META: Record<PersonnelContract, { label: string; cls: string }> = {
-  cdi:       { label: 'CDI',       cls: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
-  cdd:       { label: 'CDD',       cls: 'bg-blue-50    text-blue-700    border-blue-200'    },
-  vacataire: { label: 'Vacataire', cls: 'bg-violet-50  text-violet-700  border-violet-200'  },
-  stagiaire: { label: 'Stagiaire', cls: 'bg-amber-50   text-amber-700   border-amber-200'   },
-  benevole:  { label: 'Bénévole',  cls: 'bg-slate-100  text-slate-600   border-slate-200'   },
+  cdi:          { label: 'CDI',          cls: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+  cdd:          { label: 'CDD',          cls: 'bg-blue-50    text-blue-700    border-blue-200'    },
+  temps_partiel:{ label: 'Temps partiel',cls: 'bg-violet-50  text-violet-700  border-violet-200'  },
 }
-
-export const PERSONNEL_ROLES = [
-  'Directeur pédagogique',
-  'Coordinateur pédagogique',
-  'Enseignant permanent',
-  'Responsable qualité',
-  'Responsable administratif',
-  'Responsable financier',
-  'Chargé de communication',
-  'Responsable informatique',
-  'Agent de maintenance',
-  'Secrétaire',
-  'Autre',
-]
 
 // ─── Infrastructure & Équipements §7.1.3 ────────────────────────────────────
 
@@ -83,8 +86,8 @@ export type CommType   = 'interne' | 'externe'
 export type CommStatut = 'planifie' | 'envoye' | 'recu' | 'archive'
 
 export const COMM_TYPE_META: Record<CommType, { label: string; cls: string }> = {
-  interne: { label: 'Interne', cls: 'bg-blue-50    text-blue-600    border-blue-200'    },
-  externe: { label: 'Externe', cls: 'bg-violet-50  text-violet-600  border-violet-200'  },
+  interne: { label: 'Interne', cls: 'bg-blue-50    text-blue-600    border-blue-200'   },
+  externe: { label: 'Externe', cls: 'bg-violet-50  text-violet-600  border-violet-200' },
 }
 
 export const COMM_STATUT_META: Record<CommStatut, { label: string; cls: string }> = {
@@ -94,12 +97,4 @@ export const COMM_STATUT_META: Record<CommStatut, { label: string; cls: string }
   archive:  { label: 'Archivé',  cls: 'bg-amber-50   text-amber-600   border-amber-200'   },
 }
 
-export const COMM_CHANNELS = [
-  'Email',
-  'Réunion',
-  'Affichage',
-  'Courrier',
-  'Téléphone',
-  'Application',
-  'Autre',
-]
+export const COMM_CHANNELS = ['Email', 'Réunion', 'Affichage', 'Courrier', 'Téléphone', 'Application', 'Autre']
