@@ -32,6 +32,7 @@ export async function middleware(request: NextRequest) {
   const isLanding   = pathname === '/'
   const isPublic    = pathname.startsWith('/_next') ||
                       pathname.startsWith('/favicon') ||
+                      pathname.startsWith('/api/') ||
                       isLanding
 
   // Non authentifié → login (sauf landing et pages publiques)
