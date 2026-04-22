@@ -65,6 +65,7 @@ export default async function OrgDashboard({
     { label: 'P4 — Scolarité',   href: `/org/${orgId}/scolarite`,   icon: TrendingUp,    desc: 'Suivi pédagogique' },
     { label: 'P5 — Diplomation', href: `/org/${orgId}/diplomation`, icon: CheckCircle2,  desc: 'Diplômes & cérémonie' },
     { label: 'P6 — Amélioration',href: `/org/${orgId}/qualite`,     icon: UserCheck,     desc: 'Qualité & conformité' },
+    { label: 'P7 — Support',     href: `/org/${orgId}/support`,     icon: Clock,         desc: 'RH · Infra · Docs' },
   ]
 
   return (
@@ -101,7 +102,7 @@ export default async function OrgDashboard({
           <TrendingUp size={15} className="text-slate-400" />
           Processus de réalisation
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-2">
           {processus.map(({ label, href, icon: Icon, desc }) => (
             <Link
               key={href}

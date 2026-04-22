@@ -13,6 +13,7 @@ import {
   Lightbulb,
   ShieldCheck,
   TrendingUp,
+  Wrench,
   LogOut,
   ChevronRight,
   ArrowLeft,
@@ -45,6 +46,7 @@ export default function OrgSidebar({
     { href: `${base}/incubateur`,    label: 'Incubateur',       icon: Lightbulb },
     { href: `${base}/management`,    label: 'P1 — Management',  icon: TrendingUp },
     { href: `${base}/qualite`,       label: 'P6 — Amélioration', icon: ShieldCheck },
+    { href: `${base}/support`,       label: 'P7 — Support',      icon: Wrench },
   ]
 
   async function handleLogout() {
