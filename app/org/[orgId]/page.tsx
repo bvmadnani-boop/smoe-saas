@@ -60,11 +60,11 @@ export default async function OrgDashboard({
   }
 
   const processus = [
-    { label: 'P1 — Marketing',   href: `/org/${orgId}/marketing`,   icon: Megaphone,     desc: 'Campagnes & leads' },
-    { label: 'P2 — Commercial',  href: `/org/${orgId}/commercial`,  icon: UserCheck,     desc: 'Suivi prospects' },
+    { label: 'P1 — Management',  href: `/org/${orgId}/management`,  icon: Megaphone,     desc: 'Pilotage stratégique' },
     { label: 'P3 — Inscription', href: `/org/${orgId}/inscription`, icon: ClipboardList, desc: 'Dossiers étudiants' },
     { label: 'P4 — Scolarité',   href: `/org/${orgId}/scolarite`,   icon: TrendingUp,    desc: 'Suivi pédagogique' },
     { label: 'P5 — Diplomation', href: `/org/${orgId}/diplomation`, icon: CheckCircle2,  desc: 'Diplômes & cérémonie' },
+    { label: 'P6 — Amélioration',href: `/org/${orgId}/qualite`,     icon: UserCheck,     desc: 'Qualité & conformité' },
   ]
 
   return (

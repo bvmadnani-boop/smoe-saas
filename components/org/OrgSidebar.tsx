@@ -43,7 +43,7 @@ export default function OrgSidebar({
     { href: `${base}/diplomation`,   label: 'P5 — Diplomation', icon: Award },
     { href: `${base}/career-centre`, label: 'Career Centre',    icon: Briefcase },
     { href: `${base}/incubateur`,    label: 'Incubateur',       icon: Lightbulb },
-    { href: `${base}/management`,    label: 'Management',       icon: TrendingUp },
+    { href: `${base}/management`,    label: 'P1 — Management',  icon: TrendingUp },
     { href: `${base}/qualite`,       label: 'P6 — Amélioration', icon: ShieldCheck },
   ]
 
