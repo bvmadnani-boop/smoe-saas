@@ -27,15 +27,15 @@ export default async function OrgDashboard({
 
   const [
     { count: nbStudents },
-    { count: nbLeads },
-    { count: nbInscriptions },
+    { count: nbFormations },
+    { count: nbInscrits },
     { count: nbNC },
     { data: recentStudents },
   ] = await Promise.all([
     supabase.from('students').select('*', { count: 'exact', head: true }).eq('organization_id', orgId),
-    supabase.from('leads').select('*', { count: 'exact', head: true }).eq('organization_id', orgId),
-    supabase.from('inscriptions').select('*', { count: 'exact', head: true }).eq('organization_id', orgId).eq('status', 'pending'),
-    supabase.from('non_conformities').select('*', { count: 'exact', head: true }).eq('organization_id', orgId).eq('status', 'open'),
+    supabase.from('formations').select('*', { count: 'exact', head: true }).eq('organization_id', orgId),
+    supabase.from('students').select('*', { count: 'exact', head: true }).eq('organization_id', orgId).eq('status', 'inscrit'),
+    supabase.from('nonconformities').select('*', { count: 'exact', head: true }).eq('organization_id', orgId).eq('status', 'ouverte'),
     supabase
       .from('students')
       .select('id, student_code, full_name, status, created_at')
@@ -45,18 +45,18 @@ export default async function OrgDashboard({
   ])
 
   const kpis = [
-    { label: 'Étudiants actifs',     value: nbStudents    ?? 0, icon: GraduationCap, color: 'bg-emerald-50 text-emerald-600', border: 'border-emerald-100' },
-    { label: 'Leads en cours',       value: nbLeads       ?? 0, icon: Megaphone,     color: 'bg-blue-50 text-blue-600',       border: 'border-blue-100' },
-    { label: 'Inscriptions pending', value: nbInscriptions ?? 0, icon: ClipboardList, color: 'bg-violet-50 text-violet-600',   border: 'border-violet-100' },
-    { label: 'NC ouvertes',          value: nbNC          ?? 0, icon: AlertTriangle,  color: 'bg-amber-50 text-amber-600',     border: 'border-amber-100' },
+    { label: 'Total étudiants',      value: nbStudents   ?? 0, icon: GraduationCap, color: 'bg-emerald-50 text-emerald-600', border: 'border-emerald-100' },
+    { label: 'Formations',           value: nbFormations ?? 0, icon: TrendingUp,    color: 'bg-blue-50 text-blue-600',       border: 'border-blue-100' },
+    { label: 'Nouveaux inscrits',    value: nbInscrits   ?? 0, icon: ClipboardList, color: 'bg-violet-50 text-violet-600',   border: 'border-violet-100' },
+    { label: 'NC ouvertes',          value: nbNC         ?? 0, icon: AlertTriangle, color: 'bg-amber-50 text-amber-600',     border: 'border-amber-100' },
   ]
 
   const statusLabel: Record<string, { label: string; cls: string }> = {
-    active:     { label: 'Actif',      cls: 'bg-emerald-50 text-emerald-600' },
-    inactive:   { label: 'Inactif',    cls: 'bg-slate-100 text-slate-500' },
-    graduated:  { label: 'Diplômé',    cls: 'bg-blue-50 text-blue-600' },
-    suspended:  { label: 'Suspendu',   cls: 'bg-red-50 text-red-500' },
-    enrolled:   { label: 'Inscrit',    cls: 'bg-violet-50 text-violet-600' },
+    inscrit:  { label: 'Inscrit',  cls: 'bg-violet-50 text-violet-600' },
+    actif:    { label: 'Actif',    cls: 'bg-emerald-50 text-emerald-600' },
+    diplome:  { label: 'Diplômé', cls: 'bg-blue-50 text-blue-600' },
+    suspendu: { label: 'Suspendu', cls: 'bg-red-50 text-red-500' },
+    inactif:  { label: 'Inactif',  cls: 'bg-slate-100 text-slate-500' },
   }
 
   const processus = [

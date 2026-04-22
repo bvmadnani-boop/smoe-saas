@@ -5,8 +5,6 @@ import {
   AlertTriangle, CheckCircle2, Users, BarChart3,
   ChevronRight, Plus,
 } from 'lucide-react'
-import { POLICY_STATUS_META } from '@/lib/policy-templates'
-import { getScoreLevel } from '@/lib/risk-templates'
 
 export const dynamic = 'force-dynamic'
 
