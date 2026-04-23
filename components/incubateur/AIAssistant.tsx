@@ -72,7 +72,7 @@ function getBriefContextuel(ctx: ProjectContext) {
 export default function AIAssistant({ context }: AIAssistantProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
+  const { messages, input, handleInputChange, handleSubmit, isLoading, append } = useChat({
     api: '/api/incubateur/assistant',
     body: { context },
   })
@@ -162,11 +162,7 @@ export default function AIAssistant({ context }: AIAssistantProps) {
               ].map(suggestion => (
                 <button
                   key={suggestion}
-                  onClick={() => {
-                    const fakeEvent = { preventDefault: () => {} } as React.FormEvent
-                    handleInputChange({ target: { value: suggestion } } as React.ChangeEvent<HTMLInputElement>)
-                    setTimeout(() => handleSubmit(fakeEvent), 50)
-                  }}
+                  onClick={() => append({ role: 'user', content: suggestion })}
                   className="block w-full text-left text-xs px-3 py-2 bg-white border border-slate-200
                              rounded-lg hover:border-[#1B3A6B] hover:text-[#1B3A6B] transition-colors text-slate-600"
                 >

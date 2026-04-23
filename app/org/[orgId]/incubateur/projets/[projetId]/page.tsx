@@ -231,7 +231,7 @@ export default function ProjetDetailPage() {
       </div>
 
       {/* Layout 2 colonnes — Fiche + Assistant IA */}
-      <div className="grid grid-cols-1 xl:grid-cols-[1fr_360px] gap-5 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-5 items-start">
       <div> {/* Colonne gauche */}
 
       {/* Score maturité */}
@@ -569,7 +569,7 @@ export default function ProjetDetailPage() {
       </div> {/* Fin colonne gauche */}
 
       {/* Colonne droite — Assistant IA */}
-      <div className="sticky top-6 h-[calc(100vh-5rem)] flex flex-col bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+      <div className="lg:sticky lg:top-6 h-[600px] lg:h-[calc(100vh-6rem)] flex flex-col bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
         <AIAssistant context={aiContext} />
       </div>
 
