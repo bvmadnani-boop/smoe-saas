@@ -129,7 +129,7 @@ export default async function RhPage({
             positionsSansFiche={
               (positions ?? [])
                 .filter(p => ((p.org_fiches_fonction as any[]) ?? []).length === 0)
-                .map(p => ({ id: p.id, title: p.title }))
+                .map(p => ({ id: p.id, title: p.title, level: p.level, order_index: p.order_index }))
             }
           />
         )}
