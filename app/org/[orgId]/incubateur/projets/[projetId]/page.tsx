@@ -8,6 +8,7 @@ import {
   ArrowLeft, Plus, X, ChevronDown, CheckCircle2, Circle,
   Users, Trophy, DollarSign, Flag, MessageSquare,
 } from 'lucide-react'
+import AIAssistant from '@/components/incubateur/AIAssistant'
 import {
   PROJET_STADE_META, STADE_PIPELINE, SCORE_MATURITE_ITEMS,
   BESOIN_META, SESSION_THEME_META, PITCH_TYPE_META,
@@ -165,6 +166,25 @@ export default function ProjetDetailPage() {
   const stageIdx = STADE_PIPELINE.indexOf(projet.stade)
   const totalFinancement = financements.filter(f => f.statut === 'obtenu').reduce((acc, f) => acc + (f.montant_obtenu ?? 0), 0)
   const jalonsValides = jalons.filter(j => j.statut === 'valide').length
+  const jalonsEnRetard = jalons.filter(j => j.echeance && new Date(j.echeance) < new Date() && j.statut !== 'valide').length
+
+  const aiContext = {
+    nom: projet.nom,
+    secteur: projet.secteur,
+    stade_label: stageMeta.label,
+    stade_index: stageIdx + 1,
+    score: projet.score_maturite,
+    description: projet.description,
+    business_model: projet.business_model,
+    prototype: projet.prototype,
+    premier_client: projet.premier_client,
+    financement_obtenu: projet.financement_obtenu,
+    equipe_complete: projet.equipe_complete,
+    besoins: projet.besoins,
+    jalons_en_retard: jalonsEnRetard,
+    total_jalons: jalons.length,
+    financement_total: totalFinancement,
+  }
 
   const SectionHeader = ({ id, label, icon: Icon, count }: { id: ActiveSection; label: string; icon: any; count?: number }) => (
     <button onClick={() => setActiveSection(activeSection === id ? null : id)}
@@ -184,7 +204,7 @@ export default function ProjetDetailPage() {
   )
 
   return (
-    <div className="p-8 max-w-5xl mx-auto">
+    <div className="p-6 max-w-[1400px] mx-auto">
       {/* Header */}
       <div className="mb-6">
         <Link href={`/org/${orgId}/incubateur/projets`}
@@ -209,6 +229,10 @@ export default function ProjetDetailPage() {
           </span>
         </div>
       </div>
+
+      {/* Layout 2 colonnes — Fiche + Assistant IA */}
+      <div className="grid grid-cols-1 xl:grid-cols-[1fr_360px] gap-5 items-start">
+      <div> {/* Colonne gauche */}
 
       {/* Score maturité */}
       <div className="bg-white rounded-xl border border-slate-200 p-5 mb-4">
@@ -542,6 +566,14 @@ export default function ProjetDetailPage() {
         </div>
 
       </div>
+      </div> {/* Fin colonne gauche */}
+
+      {/* Colonne droite — Assistant IA */}
+      <div className="sticky top-6 h-[calc(100vh-5rem)] flex flex-col bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+        <AIAssistant context={aiContext} />
+      </div>
+
+      </div> {/* Fin grid */}
     </div>
   )
 }
