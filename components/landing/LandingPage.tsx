@@ -41,7 +41,7 @@ function Counter({ target, suffix = '' }: { target: number; suffix?: string }) {
 function GlowCard({ children, className = '', glow = false }: { children: React.ReactNode; className?: string; glow?: boolean }) {
   return (
     <div className={`relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 transition-all duration-300 hover:border-blue-500/30 hover:bg-white/8 ${glow ? 'shadow-[0_0_40px_rgba(59,130,246,0.1)]' : ''} ${className}`}>
-      {glow && <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 to-indigo-500/5 pointer-events-none" />}
+      {glow && <div aria-hidden="true" className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 to-indigo-500/5 pointer-events-none" />}
       {children}
     </div>
   )
@@ -66,14 +66,14 @@ export default function LandingPage() {
     <div className="min-h-screen bg-[#070B14] text-white overflow-x-hidden">
 
       {/* Grid background */}
-      <div className="fixed inset-0 pointer-events-none"
+      <div aria-hidden="true" className="fixed inset-0 pointer-events-none"
         style={{
           backgroundImage: `linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px)`,
           backgroundSize: '60px 60px',
         }} />
 
       {/* Radial glow top */}
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
+      <div aria-hidden="true" className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
 
       {/* ── NAVBAR ─────────────────────────────────────────────────────── */}
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-[#070B14]/80 backdrop-blur-xl">

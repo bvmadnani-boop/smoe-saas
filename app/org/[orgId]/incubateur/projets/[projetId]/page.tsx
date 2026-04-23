@@ -81,9 +81,13 @@ export default function ProjetDetailPage() {
   useEffect(() => { load() }, [projetId])
 
   // Toggle score maturité
-  async function toggleScore(field: keyof typeof SCORE_MATURITE_ITEMS[0] | string) {
+  const SCORE_FIELDS = ['business_model', 'prototype', 'premier_client', 'financement_obtenu', 'equipe_complete'] as const
+  type ScoreField = typeof SCORE_FIELDS[number]
+
+  async function toggleScore(field: string) {
     if (!projet) return
-    const updated = { ...projet, [field]: !projet[field as keyof Projet] }
+    if (!(SCORE_FIELDS as readonly string[]).includes(field)) return
+    const updated = { ...projet, [field]: !projet[field as ScoreField] }
     const newScore = calculateScoreMaturite({
       business_model: updated.business_model,
       prototype: updated.prototype,

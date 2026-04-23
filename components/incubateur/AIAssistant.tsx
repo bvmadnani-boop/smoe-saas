@@ -82,7 +82,6 @@ export default function AIAssistant({ context }: AIAssistantProps) {
   }, [messages])
 
   const { manquants, priorites } = getBriefContextuel(context)
-  const scoreColor = context.score >= 70 ? 'text-emerald-600' : context.score >= 40 ? 'text-amber-600' : 'text-slate-500'
 
   return (
     <div className="flex flex-col h-full min-h-0">

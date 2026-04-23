@@ -29,23 +29,27 @@ export default function LoginPage() {
       return
     }
 
-    router.push('/')
-    router.refresh()
+    try {
+      router.push('/')
+      router.refresh()
+    } catch {
+      setLoading(false)
+    }
   }
 
   return (
     <div className="min-h-screen bg-[#070B14] flex items-center justify-center px-4 relative overflow-hidden">
 
       {/* Grid background */}
-      <div className="absolute inset-0 pointer-events-none"
+      <div aria-hidden="true" className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px)`,
           backgroundSize: '60px 60px',
         }} />
 
       {/* Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-blue-600/10 blur-[100px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-indigo-600/8 blur-[80px] rounded-full pointer-events-none" />
+      <div aria-hidden="true" className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-blue-600/10 blur-[100px] rounded-full pointer-events-none" />
+      <div aria-hidden="true" className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-indigo-600/8 blur-[80px] rounded-full pointer-events-none" />
 
       {/* Back to landing */}
       <Link href="/"
@@ -76,6 +80,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
+                autoComplete="email"
                 placeholder="vous@etablissement.ma"
                 className="w-full px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-slate-600
                            focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 focus:bg-white/8 transition-all"
@@ -90,6 +95,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   required
+                  autoComplete="current-password"
                   placeholder="••••••••"
                   className="w-full pl-3 pr-10 py-2.5 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-slate-600
                              focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 focus:bg-white/8 transition-all"
