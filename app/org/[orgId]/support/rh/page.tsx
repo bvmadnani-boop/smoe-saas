@@ -80,6 +80,9 @@ export default async function RhPage({
         )}
       </div>
 
+      {/* Bandeau fiches manquantes — autonome, toujours monté */}
+      <FicheSeeder orgId={orgId} />
+
       {/* KPIs */}
       {!isEmpty && (
         <div className="grid grid-cols-3 gap-4 mb-6">
@@ -122,9 +125,6 @@ export default async function RhPage({
         </div>
       ) : (
         <>
-        {/* Bandeau fiches manquantes — composant autonome */}
-        <FicheSeeder orgId={orgId} />
-
         {/* Organigramme 3 colonnes */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {[

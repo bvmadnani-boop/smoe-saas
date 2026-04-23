@@ -29,7 +29,6 @@ type PositionNeedsFiche = {
   title: string
   level: number
   order_index: number
-  ficheId?: string   // si ligne existe mais vide
 }
 
 export default function FicheSeeder({ orgId }: { orgId: string }) {
@@ -42,32 +41,40 @@ export default function FicheSeeder({ orgId }: { orgId: string }) {
   const [done,      setDone]      = useState(false)
   const [error,     setError]     = useState('')
 
-  // Détection autonome des postes sans fiche utile
   useEffect(() => {
     async function detect() {
-      const { data } = await supabase
+      // Requête 1 : tous les postes (sans filtre is_active pour ne rien rater)
+      const { data: allPositions } = await supabase
         .from('org_positions')
-        .select('id, title, level, order_index, org_fiches_fonction(id, role_description, missions)')
+        .select('id, title, level, order_index')
         .eq('organization_id', orgId)
-        .eq('is_active', true)
 
-      if (!data) { setChecked(true); return }
+      if (!allPositions?.length) { setChecked(true); return }
 
-      const needsFiche = data.filter((pos: any) => {
-        const fiches = (pos.org_fiches_fonction as any[]) ?? []
-        if (fiches.length === 0) return true          // pas de ligne
-        const f = fiches[0]
-        return !f.role_description && (!f.missions || f.missions.length === 0)
-      }).map((pos: any) => {
-        const fiches = (pos.org_fiches_fonction as any[]) ?? []
-        return {
+      // Requête 2 : toutes les fiches existantes pour cet org
+      const { data: allFiches } = await supabase
+        .from('org_fiches_fonction')
+        .select('id, position_id, role_description, missions')
+        .eq('organization_id', orgId)
+
+      const ficheByPos: Record<string, any> = {}
+      for (const f of (allFiches ?? [])) {
+        ficheByPos[f.position_id] = f
+      }
+
+      const needsFiche = allPositions
+        .filter(pos => {
+          const f = ficheByPos[pos.id]
+          if (!f) return true   // pas de fiche du tout
+          // fiche vide : pas de role ET pas de missions
+          return !f.role_description && (!f.missions || (f.missions as string[]).length === 0)
+        })
+        .map(pos => ({
           id:          pos.id,
           title:       pos.title,
           level:       pos.level,
           order_index: pos.order_index,
-          ficheId:     fiches[0]?.id ?? undefined,
-        }
-      })
+        }))
 
       setPositions(needsFiche)
       setChecked(true)
@@ -80,7 +87,6 @@ export default function FicheSeeder({ orgId }: { orgId: string }) {
     return key && ANEAQ_FICHES[key]
   })
 
-  // Rien à afficher si détection pas terminée ou tout est ok
   if (!checked || positions.length === 0 || done) return null
 
   async function handleSeed() {
@@ -154,7 +160,7 @@ export default function FicheSeeder({ orgId }: { orgId: string }) {
 
       {nonMatchables.length > 0 && (
         <p className="text-xs text-amber-700 border-t border-amber-200 pt-2">
-          {nonMatchables.length} poste{nonMatchables.length > 1 ? 's' : ''} hors modèle ANEAQ — à rédiger manuellement :{' '}
+          {nonMatchables.length} poste{nonMatchables.length > 1 ? 's' : ''} hors modèle — à rédiger manuellement :{' '}
           {nonMatchables.map(p => p.title).join(', ')}
         </p>
       )}
