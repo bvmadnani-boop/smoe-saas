@@ -1,64 +1,94 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { ANEAQ_POSITIONS, ANEAQ_FICHES } from '@/lib/support-templates'
 import { FileText, Loader2 } from 'lucide-react'
 
-// Map titre normalisé → clé ANEAQ (insensible aux espaces et à la casse)
 const normalize = (s: string) => s.trim().toLowerCase().replace(/\s+/g, ' ')
+
 const TITLE_TO_KEY: Record<string, string> = Object.fromEntries(
   ANEAQ_POSITIONS.map(p => [normalize(p.title), p.key])
 )
-
-// Matching par niveau + order_index en fallback
 const LEVEL_ORDER_TO_KEY: Record<string, string> = Object.fromEntries(
   ANEAQ_POSITIONS.map(p => [`${p.level}-${p.order_index}`, p.key])
 )
 
-type PositionStub = { id: string; title: string; level?: number; order_index?: number }
-
-function resolveKey(p: PositionStub): string | null {
-  // 1. Correspondance par titre normalisé
-  const byTitle = TITLE_TO_KEY[normalize(p.title)]
+function resolveKey(title: string, level?: number, order_index?: number): string | null {
+  const byTitle = TITLE_TO_KEY[normalize(title)]
   if (byTitle) return byTitle
-  // 2. Fallback : niveau + order_index
-  if (p.level != null && p.order_index != null) {
-    return LEVEL_ORDER_TO_KEY[`${p.level}-${p.order_index}`] ?? null
+  if (level != null && order_index != null) {
+    return LEVEL_ORDER_TO_KEY[`${level}-${order_index}`] ?? null
   }
   return null
 }
 
-export default function FicheSeeder({
-  orgId,
-  positionsSansFiche,
-}: {
-  orgId: string
-  positionsSansFiche: PositionStub[]
-}) {
+type PositionNeedsFiche = {
+  id: string
+  title: string
+  level: number
+  order_index: number
+  ficheId?: string   // si ligne existe mais vide
+}
+
+export default function FicheSeeder({ orgId }: { orgId: string }) {
   const router   = useRouter()
   const supabase = createClient()
 
-  const [loading, setLoading] = useState(false)
-  const [done,    setDone]    = useState(false)
-  const [error,   setError]   = useState('')
+  const [positions, setPositions] = useState<PositionNeedsFiche[]>([])
+  const [checked,   setChecked]   = useState(false)
+  const [loading,   setLoading]   = useState(false)
+  const [done,      setDone]      = useState(false)
+  const [error,     setError]     = useState('')
 
-  const matchables = positionsSansFiche.filter(p => {
-    const key = resolveKey(p)
+  // Détection autonome des postes sans fiche utile
+  useEffect(() => {
+    async function detect() {
+      const { data } = await supabase
+        .from('org_positions')
+        .select('id, title, level, order_index, org_fiches_fonction(id, role_description, missions)')
+        .eq('organization_id', orgId)
+        .eq('is_active', true)
+
+      if (!data) { setChecked(true); return }
+
+      const needsFiche = data.filter((pos: any) => {
+        const fiches = (pos.org_fiches_fonction as any[]) ?? []
+        if (fiches.length === 0) return true          // pas de ligne
+        const f = fiches[0]
+        return !f.role_description && (!f.missions || f.missions.length === 0)
+      }).map((pos: any) => {
+        const fiches = (pos.org_fiches_fonction as any[]) ?? []
+        return {
+          id:          pos.id,
+          title:       pos.title,
+          level:       pos.level,
+          order_index: pos.order_index,
+          ficheId:     fiches[0]?.id ?? undefined,
+        }
+      })
+
+      setPositions(needsFiche)
+      setChecked(true)
+    }
+    detect()
+  }, [orgId])
+
+  const matchables = positions.filter(p => {
+    const key = resolveKey(p.title, p.level, p.order_index)
     return key && ANEAQ_FICHES[key]
   })
 
-  // Afficher le bandeau dès qu'il y a des postes sans fiche
-  if (positionsSansFiche.length === 0) return null
+  // Rien à afficher si détection pas terminée ou tout est ok
+  if (!checked || positions.length === 0 || done) return null
 
   async function handleSeed() {
     setLoading(true)
     setError('')
-    setDone(false)
 
     const payload = matchables.map(p => {
-      const key   = resolveKey(p)!
+      const key   = resolveKey(p.title, p.level, p.order_index)!
       const fiche = ANEAQ_FICHES[key]
       return {
         organization_id:      orgId,
@@ -73,25 +103,23 @@ export default function FicheSeeder({
       }
     })
 
-    // upsert : insère si absent, écrase si ligne vide existante
+    if (payload.length === 0) { setLoading(false); return }
+
     const { error: err } = await supabase
       .from('org_fiches_fonction')
       .upsert(payload, { onConflict: 'position_id' })
 
-    if (err) {
-      setError(err.message)
-      setLoading(false)
-      return
-    }
+    if (err) { setError(err.message); setLoading(false); return }
 
     setDone(true)
     setLoading(false)
     router.refresh()
   }
 
-  if (done) return null
-
-  const nonMatchables = positionsSansFiche.filter(p => !resolveKey(p) || !ANEAQ_FICHES[resolveKey(p)!])
+  const nonMatchables = positions.filter(p => {
+    const key = resolveKey(p.title, p.level, p.order_index)
+    return !key || !ANEAQ_FICHES[key]
+  })
 
   return (
     <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 mb-6 space-y-3">
@@ -100,7 +128,7 @@ export default function FicheSeeder({
           <FileText size={18} className="text-amber-500 shrink-0 mt-0.5" />
           <div>
             <p className="text-sm font-semibold text-amber-800">
-              {positionsSansFiche.length} fiche{positionsSansFiche.length > 1 ? 's' : ''} manquante{positionsSansFiche.length > 1 ? 's' : ''}
+              {positions.length} fiche{positions.length > 1 ? 's' : ''} à compléter
               {matchables.length > 0 && ` · ${matchables.length} avec template ANEAQ`}
             </p>
             {matchables.length > 0 && (
@@ -126,7 +154,7 @@ export default function FicheSeeder({
 
       {nonMatchables.length > 0 && (
         <p className="text-xs text-amber-700 border-t border-amber-200 pt-2">
-          {nonMatchables.length} poste{nonMatchables.length > 1 ? 's' : ''} hors modèle ANEAQ à rédiger manuellement :{' '}
+          {nonMatchables.length} poste{nonMatchables.length > 1 ? 's' : ''} hors modèle ANEAQ — à rédiger manuellement :{' '}
           {nonMatchables.map(p => p.title).join(', ')}
         </p>
       )}
