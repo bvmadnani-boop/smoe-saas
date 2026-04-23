@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { Users, Plus, ArrowLeft, CheckCircle2, AlertCircle } from 'lucide-react'
 import OrgChartSeeder from '@/components/org/support/OrgChartSeeder'
+import FicheSeeder    from '@/components/org/support/FicheSeeder'
 import { CONTRACT_META, PERSONNEL_STATUS_META, type PersonnelContract, type PersonnelStatus } from '@/lib/support-templates'
 
 export const dynamic = 'force-dynamic'
@@ -120,7 +121,20 @@ export default async function RhPage({
           </div>
         </div>
       ) : (
-        /* Organigramme 3 colonnes */
+        <>
+        {/* Bandeau fiches manquantes */}
+        {sansFiche > 0 && (
+          <FicheSeeder
+            orgId={orgId}
+            positionsSansFiche={
+              (positions ?? [])
+                .filter(p => ((p.org_fiches_fonction as any[]) ?? []).length === 0)
+                .map(p => ({ id: p.id, title: p.title }))
+            }
+          />
+        )}
+
+        {/* Organigramme 3 colonnes */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {[
             { level: 1, list: l1 },
@@ -231,6 +245,7 @@ export default async function RhPage({
             </div>
           ))}
         </div>
+        </>
       )}
     </div>
   )
