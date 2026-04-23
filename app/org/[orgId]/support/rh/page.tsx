@@ -51,12 +51,14 @@ export default async function RhPage({
     const pers = (p.support_personnel as any[]) ?? []
     return !pers.find((x: any) => x.status === 'actif')
   }).length
-  // Supabase peut retourner un objet unique (UNIQUE constraint) au lieu d'un tableau
-  const toArr = (v: any): any[] => !v ? [] : Array.isArray(v) ? v : [v]
-
-  const sansFiche = (positions ?? []).filter(p =>
-    toArr(p.org_fiches_fonction).length === 0
-  ).length
+  // Supabase renvoie parfois un objet au lieu d'un tableau (contrainte UNIQUE)
+  // On normalise inline pour éviter les faux undefined sur .length
+  const sansFiche = (positions ?? []).filter(p => {
+    const ff = p.org_fiches_fonction as unknown
+    if (!ff) return true
+    if (Array.isArray(ff)) return (ff as unknown[]).length === 0
+    return false // objet unique = ligne existe = a une fiche
+  }).length
 
   return (
     <div className="p-8">
@@ -165,7 +167,8 @@ export default async function RhPage({
                   list.map(pos => {
                     const personnel = (pos.support_personnel as any[]) ?? []
                     const occupant  = personnel.find((p: any) => p.status === 'actif') ?? null
-                    const hasFiche  = toArr(pos.org_fiches_fonction).length > 0
+                    const _ff = pos.org_fiches_fonction as unknown
+                    const hasFiche = !!_ff && (!Array.isArray(_ff) || (_ff as unknown[]).length > 0)
                     const parent    = pos.parent_id ? posMap[pos.parent_id] : null
                     const ctMeta    = occupant ? CONTRACT_META[occupant.contract_type as PersonnelContract] : null
 
