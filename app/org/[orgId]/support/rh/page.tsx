@@ -76,16 +76,16 @@ export default async function RhPage({
           </p>
         </div>
         {!isEmpty && (
-          <Link href={`/org/${orgId}/support/rh/poste/new`}
-            className="flex items-center gap-2 px-4 py-2.5 bg-[#1B3A6B] text-white
-                       rounded-lg text-sm font-medium hover:bg-[#2E5BA8] transition-colors">
-            <Plus size={16} /> Ajouter un poste
-          </Link>
+          <div className="flex items-center gap-3">
+            <FicheSeeder orgId={orgId} />
+            <Link href={`/org/${orgId}/support/rh/poste/new`}
+              className="flex items-center gap-2 px-4 py-2.5 bg-[#1B3A6B] text-white
+                         rounded-lg text-sm font-medium hover:bg-[#2E5BA8] transition-colors">
+              <Plus size={16} /> Ajouter un poste
+            </Link>
+          </div>
         )}
       </div>
-
-      {/* Bandeau fiches manquantes — autonome, toujours monté */}
-      <FicheSeeder orgId={orgId} />
 
       {/* KPIs */}
       {!isEmpty && (
@@ -128,8 +128,7 @@ export default async function RhPage({
           </div>
         </div>
       ) : (
-        <>
-        {/* Organigramme 3 colonnes */}
+        /* Organigramme 3 colonnes */
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {[
             { level: 1, list: l1 },
@@ -241,7 +240,6 @@ export default async function RhPage({
             </div>
           ))}
         </div>
-        </>
       )}
     </div>
   )
