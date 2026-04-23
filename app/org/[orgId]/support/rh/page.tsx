@@ -30,7 +30,7 @@ export default async function RhPage({
     .from('org_positions')
     .select(`
       id, title, level, parent_id, order_index,
-      org_fiches_fonction ( id ),
+      org_fiches_fonction ( id, role_description, missions ),
       support_personnel ( id, full_name, status, contract_type )
     `)
     .eq('organization_id', orgId)
@@ -51,10 +51,14 @@ export default async function RhPage({
     const pers = (p.support_personnel as any[]) ?? []
     return !pers.find((x: any) => x.status === 'actif')
   }).length
-  const sansFiche     = (positions ?? []).filter(p => {
+  // "sans fiche utile" = pas de ligne OU ligne vide (pas de role + missions vides)
+  const isFicheVide = (p: any) => {
     const ff = (p.org_fiches_fonction as any[]) ?? []
-    return ff.length === 0
-  }).length
+    if (ff.length === 0) return true
+    const f = ff[0]
+    return !f.role_description && (!f.missions || f.missions.length === 0)
+  }
+  const sansFiche = (positions ?? []).filter(isFicheVide).length
 
   return (
     <div className="p-8">
@@ -128,7 +132,7 @@ export default async function RhPage({
             orgId={orgId}
             positionsSansFiche={
               (positions ?? [])
-                .filter(p => ((p.org_fiches_fonction as any[]) ?? []).length === 0)
+                .filter(isFicheVide)
                 .map(p => ({ id: p.id, title: p.title, level: p.level, order_index: p.order_index }))
             }
           />
@@ -172,7 +176,7 @@ export default async function RhPage({
                   list.map(pos => {
                     const personnel = (pos.support_personnel as any[]) ?? []
                     const occupant  = personnel.find((p: any) => p.status === 'actif') ?? null
-                    const hasFiche  = ((pos.org_fiches_fonction as any[]) ?? []).length > 0
+                    const hasFiche  = !isFicheVide(pos)
                     const parent    = pos.parent_id ? posMap[pos.parent_id] : null
                     const ctMeta    = occupant ? CONTRACT_META[occupant.contract_type as PersonnelContract] : null
 

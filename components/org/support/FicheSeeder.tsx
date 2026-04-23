@@ -73,7 +73,10 @@ export default function FicheSeeder({
       }
     })
 
-    const { error: err } = await supabase.from('org_fiches_fonction').insert(payload)
+    // upsert : insère si absent, écrase si ligne vide existante
+    const { error: err } = await supabase
+      .from('org_fiches_fonction')
+      .upsert(payload, { onConflict: 'position_id' })
 
     if (err) {
       setError(err.message)
