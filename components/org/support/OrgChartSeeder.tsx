@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { ANEAQ_POSITIONS } from '@/lib/support-templates'
+import { ANEAQ_POSITIONS, ANEAQ_FICHES } from '@/lib/support-templates'
 import { Loader2 } from 'lucide-react'
 
 export default function OrgChartSeeder({ orgId }: { orgId: string }) {
@@ -46,7 +46,7 @@ export default function OrgChartSeeder({ orgId }: { orgId: string }) {
 
       // 3 — Niveau 3
       const l3 = ANEAQ_POSITIONS.filter(p => p.level === 3)
-      const { error: e3 } = await supabase
+      const { data: inserted3, error: e3 } = await supabase
         .from('org_positions')
         .insert(l3.map(p => ({
           organization_id: orgId,
@@ -55,7 +55,28 @@ export default function OrgChartSeeder({ orgId }: { orgId: string }) {
           order_index: p.order_index,
           parent_id:   p.parent_key ? idByKey[p.parent_key] : null,
         })))
+        .select('id, order_index')
       if (e3) throw new Error(e3.message)
+
+      l3.forEach((p, i) => { idByKey[p.key] = inserted3![i].id })
+
+      // 4 — Fiches de fonction pré-renseignées
+      const fichesPayload = ANEAQ_POSITIONS
+        .filter(p => ANEAQ_FICHES[p.key])
+        .map(p => ({
+          organization_id:      orgId,
+          position_id:          idByKey[p.key],
+          role_description:     ANEAQ_FICHES[p.key].role_description,
+          missions:             ANEAQ_FICHES[p.key].missions,
+          responsabilites:      ANEAQ_FICHES[p.key].responsabilites,
+          taches:               ANEAQ_FICHES[p.key].taches,
+          exigences_diplome:    ANEAQ_FICHES[p.key].exigences_diplome,
+          exigences_experience: ANEAQ_FICHES[p.key].exigences_experience,
+          version:              '1.0',
+        }))
+
+      const { error: e4 } = await supabase.from('org_fiches_fonction').insert(fichesPayload)
+      if (e4) throw new Error(e4.message)
 
       router.refresh()
     } catch (err: any) {
