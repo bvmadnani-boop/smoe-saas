@@ -51,10 +51,12 @@ export default async function RhPage({
     const pers = (p.support_personnel as any[]) ?? []
     return !pers.find((x: any) => x.status === 'actif')
   }).length
-  const sansFiche = (positions ?? []).filter(p => {
-    const ff = (p.org_fiches_fonction as any[]) ?? []
-    return ff.length === 0
-  }).length
+  // Supabase peut retourner un objet unique (UNIQUE constraint) au lieu d'un tableau
+  const toArr = (v: any): any[] => !v ? [] : Array.isArray(v) ? v : [v]
+
+  const sansFiche = (positions ?? []).filter(p =>
+    toArr(p.org_fiches_fonction).length === 0
+  ).length
 
   return (
     <div className="p-8">
@@ -163,7 +165,7 @@ export default async function RhPage({
                   list.map(pos => {
                     const personnel = (pos.support_personnel as any[]) ?? []
                     const occupant  = personnel.find((p: any) => p.status === 'actif') ?? null
-                    const hasFiche  = ((pos.org_fiches_fonction as any[]) ?? []).length > 0
+                    const hasFiche  = toArr(pos.org_fiches_fonction).length > 0
                     const parent    = pos.parent_id ? posMap[pos.parent_id] : null
                     const ctMeta    = occupant ? CONTRACT_META[occupant.contract_type as PersonnelContract] : null
 

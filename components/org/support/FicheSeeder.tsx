@@ -87,7 +87,10 @@ export default function FicheSeeder({ orgId }: { orgId: string }) {
     return key && ANEAQ_FICHES[key]
   })
 
-  if (!checked || positions.length === 0 || done) return null
+  if (!checked) return (
+    <div className="text-xs text-slate-400 mb-4">Vérification des fiches...</div>
+  )
+  if (done || positions.length === 0) return null
 
   async function handleSeed() {
     setLoading(true)
