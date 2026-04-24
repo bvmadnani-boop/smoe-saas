@@ -36,17 +36,20 @@ export default function OrgSidebar({
 
   const base = `/org/${orgId}`
 
-  const nav = [
-    { href: base,                    label: 'Tableau de bord',  icon: LayoutDashboard },
-    { href: `${base}/conception`,    label: 'P2 — Conception',  icon: PenTool },
-    { href: `${base}/inscription`,   label: 'P3 — Inscription', icon: ClipboardList },
-    { href: `${base}/scolarite`,     label: 'P4 — Scolarité',   icon: BookOpen },
-    { href: `${base}/diplomation`,   label: 'P5 — Diplomation', icon: Award },
-    { href: `${base}/career-centre`, label: 'Career Centre',    icon: Briefcase },
-    { href: `${base}/incubateur`,    label: 'Incubateur',       icon: Lightbulb },
-    { href: `${base}/management`,    label: 'P1 — Management',  icon: TrendingUp },
-    { href: `${base}/qualite`,       label: 'P6 — Amélioration', icon: ShieldCheck },
-    { href: `${base}/support`,       label: 'P7 — Support',      icon: Wrench },
+  const processus = [
+    { href: base,                  label: 'Tableau de bord',   icon: LayoutDashboard },
+    { href: `${base}/management`,  label: 'P1 — Management',   icon: TrendingUp },
+    { href: `${base}/conception`,  label: 'P2 — Conception',   icon: PenTool },
+    { href: `${base}/inscription`, label: 'P3 — Inscription',  icon: ClipboardList },
+    { href: `${base}/scolarite`,   label: 'P4 — Scolarité',    icon: BookOpen },
+    { href: `${base}/diplomation`, label: 'P5 — Diplomation',  icon: Award },
+    { href: `${base}/qualite`,     label: 'P6 — Amélioration', icon: ShieldCheck },
+    { href: `${base}/support`,     label: 'P7 — Support',      icon: Wrench },
+  ]
+
+  const transversal = [
+    { href: `${base}/career-centre`, label: 'Career Centre', icon: Briefcase },
+    { href: `${base}/incubateur`,    label: 'Incubateur',    icon: Lightbulb },
   ]
 
   async function handleLogout() {
@@ -73,8 +76,10 @@ export default function OrgSidebar({
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
-        {nav.map(({ href, label, icon: Icon }) => {
+      <nav className="flex-1 px-3 py-4 overflow-y-auto space-y-0.5">
+
+        {/* Processus ISO 21001 */}
+        {processus.map(({ href, label, icon: Icon }) => {
           const active = pathname === href || (href !== base && pathname.startsWith(href))
           return (
             <Link
@@ -92,6 +97,34 @@ export default function OrgSidebar({
             </Link>
           )
         })}
+
+        {/* Séparateur */}
+        <div className="pt-3 pb-1">
+          <p className="px-3 text-[10px] font-semibold text-blue-400/60 uppercase tracking-widest">
+            Modules transverses
+          </p>
+        </div>
+
+        {/* Career Centre + Incubateur */}
+        {transversal.map(({ href, label, icon: Icon }) => {
+          const active = pathname.startsWith(href)
+          return (
+            <Link
+              key={href}
+              href={href}
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors group ${
+                active
+                  ? 'bg-white/15 text-white font-medium'
+                  : 'text-blue-200 hover:bg-white/10 hover:text-white'
+              }`}
+            >
+              <Icon size={15} className={active ? 'text-white' : 'text-blue-300 group-hover:text-white'} />
+              <span className="flex-1">{label}</span>
+              {active && <ChevronRight size={13} className="text-blue-300" />}
+            </Link>
+          )
+        })}
+
       </nav>
 
       {/* Footer */}
