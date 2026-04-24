@@ -48,5 +48,5 @@ Financements levés : ${context.financement_total.toLocaleString('fr-FR')} MAD
     temperature: 0.7,
   })
 
-  return result.toDataStreamResponse()
+  return result.toUIMessageStreamResponse()
 }
