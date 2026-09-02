@@ -19,3 +19,16 @@ audience and content and say which you chose before building the deck. Follow th
 skill's `references/ppt-master-integration.md` pipeline (slide plan → design spec →
 spec lock → SVG pages → visual QA → export) and run `references/qa-checklist.md`
 before delivering. See `.claude/skills/README.md` for the full style table.
+
+## Corporate skills
+
+`.claude/skills/` also carries 156 role-based skills (finance, sales, HR, legal, ops,
+product, data, customer success, procurement) from
+[awesome-claude-corporate-skills](https://github.com/w95/awesome-claude-corporate-skills).
+They trigger on their own descriptions — use them whenever a request matches, in this
+project or any other. `.claude/skills/INDEX.corporate.md` lists them all by role.
+
+To make them available outside this repository, run
+`bash .claude/skills/install-corporate-skills.sh` (installs to `~/.claude/skills`,
+covering every project on that machine). See `.claude/skills/README.md` for the
+account-level option that covers every session and surface.

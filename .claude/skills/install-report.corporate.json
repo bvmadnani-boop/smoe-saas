@@ -1,0 +1,874 @@
+{
+  "installed": [
+    {
+      "skill": "board-meeting-prep",
+      "category": "01-executive-leadership"
+    },
+    {
+      "skill": "change-management",
+      "category": "01-executive-leadership"
+    },
+    {
+      "skill": "competitive-analysis",
+      "category": "01-executive-leadership"
+    },
+    {
+      "skill": "deep-research",
+      "category": "01-executive-leadership"
+    },
+    {
+      "skill": "executive-communication",
+      "category": "01-executive-leadership"
+    },
+    {
+      "skill": "internal-comms",
+      "category": "01-executive-leadership"
+    },
+    {
+      "skill": "knowledge-synthesis",
+      "category": "01-executive-leadership"
+    },
+    {
+      "skill": "kpi-dashboard",
+      "category": "01-executive-leadership"
+    },
+    {
+      "skill": "ma-due-diligence",
+      "category": "01-executive-leadership"
+    },
+    {
+      "skill": "risk-assessment",
+      "category": "01-executive-leadership"
+    },
+    {
+      "skill": "strategic-planning",
+      "category": "01-executive-leadership"
+    },
+    {
+      "skill": "task-management",
+      "category": "01-executive-leadership"
+    },
+    {
+      "skill": "3-statements",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "buyer-list",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "catalyst-calendar",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "check-model",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "cim-builder",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "client-report",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "client-review",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "comps-analysis",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "datapack-builder",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "dcf-model",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "dd-checklist",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "dd-meeting-prep",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "deal-screening",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "deal-sourcing",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "deal-tracker",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "earnings-analysis",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "earnings-preview",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "financial-plan",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "ic-memo",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "idea-generation",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "initiating-coverage",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "investment-proposal",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "invoice-organizer",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "lbo-model",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "merger-model",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "model-update",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "morning-note",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "pitch-deck",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "portfolio-monitoring",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "portfolio-rebalance",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "process-letter",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "returns-analysis",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "sector-overview",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "spglobal-earnings-preview",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "spglobal-funding-digest",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "spglobal-tear-sheet",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "strip-profile",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "tax-loss-harvesting",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "teaser",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "thesis-tracker",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "unit-economics",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "value-creation-plan",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "compensation-benchmarking",
+      "category": "03-human-resources"
+    },
+    {
+      "skill": "dei-strategy",
+      "category": "03-human-resources"
+    },
+    {
+      "skill": "employee-engagement-survey",
+      "category": "03-human-resources"
+    },
+    {
+      "skill": "employee-handbook-builder",
+      "category": "03-human-resources"
+    },
+    {
+      "skill": "interview-kit-builder",
+      "category": "03-human-resources"
+    },
+    {
+      "skill": "job-description-writer",
+      "category": "03-human-resources"
+    },
+    {
+      "skill": "onboarding-planner",
+      "category": "03-human-resources"
+    },
+    {
+      "skill": "performance-review-assistant",
+      "category": "03-human-resources"
+    },
+    {
+      "skill": "resume-generator",
+      "category": "03-human-resources"
+    },
+    {
+      "skill": "brand-guidelines",
+      "category": "04-marketing"
+    },
+    {
+      "skill": "brand-voice-enforcement",
+      "category": "04-marketing"
+    },
+    {
+      "skill": "campaign-planner",
+      "category": "04-marketing"
+    },
+    {
+      "skill": "competitive-ads-extractor",
+      "category": "04-marketing"
+    },
+    {
+      "skill": "content-research-writer",
+      "category": "04-marketing"
+    },
+    {
+      "skill": "discover-brand",
+      "category": "04-marketing"
+    },
+    {
+      "skill": "domain-name-brainstormer",
+      "category": "04-marketing"
+    },
+    {
+      "skill": "email-marketing",
+      "category": "04-marketing"
+    },
+    {
+      "skill": "guideline-generation",
+      "category": "04-marketing"
+    },
+    {
+      "skill": "market-research",
+      "category": "04-marketing"
+    },
+    {
+      "skill": "seo-content-optimizer",
+      "category": "04-marketing"
+    },
+    {
+      "skill": "social-media-strategy",
+      "category": "04-marketing"
+    },
+    {
+      "skill": "theme-factory",
+      "category": "04-marketing"
+    },
+    {
+      "skill": "twitter-algorithm-optimizer",
+      "category": "04-marketing"
+    },
+    {
+      "skill": "account-research",
+      "category": "05-sales"
+    },
+    {
+      "skill": "account-research-common-room",
+      "category": "05-sales"
+    },
+    {
+      "skill": "call-prep",
+      "category": "05-sales"
+    },
+    {
+      "skill": "call-prep-common-room",
+      "category": "05-sales"
+    },
+    {
+      "skill": "competitive-intelligence",
+      "category": "05-sales"
+    },
+    {
+      "skill": "compose-outreach",
+      "category": "05-sales"
+    },
+    {
+      "skill": "contact-research",
+      "category": "05-sales"
+    },
+    {
+      "skill": "create-an-asset",
+      "category": "05-sales"
+    },
+    {
+      "skill": "daily-briefing",
+      "category": "05-sales"
+    },
+    {
+      "skill": "draft-outreach",
+      "category": "05-sales"
+    },
+    {
+      "skill": "enrich-lead",
+      "category": "05-sales"
+    },
+    {
+      "skill": "lead-research-assistant",
+      "category": "05-sales"
+    },
+    {
+      "skill": "prospect-apollo",
+      "category": "05-sales"
+    },
+    {
+      "skill": "prospect-common-room",
+      "category": "05-sales"
+    },
+    {
+      "skill": "sequence-load",
+      "category": "05-sales"
+    },
+    {
+      "skill": "weekly-prep-brief",
+      "category": "05-sales"
+    },
+    {
+      "skill": "canned-responses",
+      "category": "06-legal-compliance"
+    },
+    {
+      "skill": "compliance",
+      "category": "06-legal-compliance"
+    },
+    {
+      "skill": "compliance-tracking",
+      "category": "06-legal-compliance"
+    },
+    {
+      "skill": "contract-review",
+      "category": "06-legal-compliance"
+    },
+    {
+      "skill": "legal-risk-assessment",
+      "category": "06-legal-compliance"
+    },
+    {
+      "skill": "meeting-briefing",
+      "category": "06-legal-compliance"
+    },
+    {
+      "skill": "nda-triage",
+      "category": "06-legal-compliance"
+    },
+    {
+      "skill": "business-case-builder",
+      "category": "07-operations"
+    },
+    {
+      "skill": "file-organizer",
+      "category": "07-operations"
+    },
+    {
+      "skill": "incident-postmortem",
+      "category": "07-operations"
+    },
+    {
+      "skill": "kaizen",
+      "category": "07-operations"
+    },
+    {
+      "skill": "meeting-insights-analyzer",
+      "category": "07-operations"
+    },
+    {
+      "skill": "memory-management",
+      "category": "07-operations"
+    },
+    {
+      "skill": "process-optimization",
+      "category": "07-operations"
+    },
+    {
+      "skill": "project-status-report",
+      "category": "07-operations"
+    },
+    {
+      "skill": "resource-planning",
+      "category": "07-operations"
+    },
+    {
+      "skill": "sop-builder",
+      "category": "07-operations"
+    },
+    {
+      "skill": "vendor-management",
+      "category": "07-operations"
+    },
+    {
+      "skill": "changelog-generator",
+      "category": "08-it-engineering"
+    },
+    {
+      "skill": "developer-growth-analysis",
+      "category": "08-it-engineering"
+    },
+    {
+      "skill": "documentation",
+      "category": "08-it-engineering"
+    },
+    {
+      "skill": "frontend-design",
+      "category": "08-it-engineering"
+    },
+    {
+      "skill": "incident-response",
+      "category": "08-it-engineering"
+    },
+    {
+      "skill": "langsmith-fetch",
+      "category": "08-it-engineering"
+    },
+    {
+      "skill": "software-architecture",
+      "category": "08-it-engineering"
+    },
+    {
+      "skill": "system-design",
+      "category": "08-it-engineering"
+    },
+    {
+      "skill": "tech-debt",
+      "category": "08-it-engineering"
+    },
+    {
+      "skill": "test-driven-development",
+      "category": "08-it-engineering"
+    },
+    {
+      "skill": "testing-strategy",
+      "category": "08-it-engineering"
+    },
+    {
+      "skill": "webapp-testing",
+      "category": "08-it-engineering"
+    },
+    {
+      "skill": "brainstorming",
+      "category": "09-product-management"
+    },
+    {
+      "skill": "feature-spec",
+      "category": "09-product-management"
+    },
+    {
+      "skill": "prd-writer",
+      "category": "09-product-management"
+    },
+    {
+      "skill": "product-launch-playbook",
+      "category": "09-product-management"
+    },
+    {
+      "skill": "roadmap-builder",
+      "category": "09-product-management"
+    },
+    {
+      "skill": "search-strategy",
+      "category": "09-product-management"
+    },
+    {
+      "skill": "source-management",
+      "category": "09-product-management"
+    },
+    {
+      "skill": "sprint-planning",
+      "category": "09-product-management"
+    },
+    {
+      "skill": "user-research-synthesizer",
+      "category": "09-product-management"
+    },
+    {
+      "skill": "csv-data-summarizer",
+      "category": "10-data-analytics"
+    },
+    {
+      "skill": "data-context-extractor",
+      "category": "10-data-analytics"
+    },
+    {
+      "skill": "data-exploration",
+      "category": "10-data-analytics"
+    },
+    {
+      "skill": "data-validation",
+      "category": "10-data-analytics"
+    },
+    {
+      "skill": "data-visualization",
+      "category": "10-data-analytics"
+    },
+    {
+      "skill": "interactive-dashboard-builder",
+      "category": "10-data-analytics"
+    },
+    {
+      "skill": "postgres",
+      "category": "10-data-analytics"
+    },
+    {
+      "skill": "sql-queries",
+      "category": "10-data-analytics"
+    },
+    {
+      "skill": "statistical-analysis",
+      "category": "10-data-analytics"
+    },
+    {
+      "skill": "churn-analysis",
+      "category": "11-customer-success"
+    },
+    {
+      "skill": "customer-research",
+      "category": "11-customer-success"
+    },
+    {
+      "skill": "escalation",
+      "category": "11-customer-success"
+    },
+    {
+      "skill": "knowledge-management",
+      "category": "11-customer-success"
+    },
+    {
+      "skill": "onboarding-playbook",
+      "category": "11-customer-success"
+    },
+    {
+      "skill": "qbr-builder",
+      "category": "11-customer-success"
+    },
+    {
+      "skill": "response-drafting",
+      "category": "11-customer-success"
+    },
+    {
+      "skill": "slack-messaging",
+      "category": "11-customer-success"
+    },
+    {
+      "skill": "slack-search",
+      "category": "11-customer-success"
+    },
+    {
+      "skill": "ticket-triage",
+      "category": "11-customer-success"
+    },
+    {
+      "skill": "contract-negotiation",
+      "category": "12-procurement-supply-chain"
+    },
+    {
+      "skill": "inventory-forecasting",
+      "category": "12-procurement-supply-chain"
+    },
+    {
+      "skill": "rfp-builder",
+      "category": "12-procurement-supply-chain"
+    },
+    {
+      "skill": "supplier-scorecard",
+      "category": "12-procurement-supply-chain"
+    },
+    {
+      "skill": "vendor-evaluation",
+      "category": "12-procurement-supply-chain"
+    }
+  ],
+  "skipped": [
+    {
+      "skill": "skill-creator",
+      "category": "00-meta",
+      "reason": "already available in Claude Code"
+    },
+    {
+      "skill": "canvas-design",
+      "category": "04-marketing",
+      "reason": "already available in Claude Code"
+    },
+    {
+      "skill": "code-review",
+      "category": "08-it-engineering",
+      "reason": "already available in Claude Code"
+    },
+    {
+      "skill": "mcp-builder",
+      "category": "08-it-engineering",
+      "reason": "already available in Claude Code"
+    },
+    {
+      "skill": "doc-coauthoring",
+      "category": "09-product-management",
+      "reason": "already available in Claude Code"
+    },
+    {
+      "skill": "docx",
+      "category": "13-document-processing",
+      "reason": "already available in Claude Code"
+    },
+    {
+      "skill": "pdf",
+      "category": "13-document-processing",
+      "reason": "already available in Claude Code"
+    },
+    {
+      "skill": "pptx",
+      "category": "13-document-processing",
+      "reason": "already available in Claude Code"
+    },
+    {
+      "skill": "xlsx",
+      "category": "13-document-processing",
+      "reason": "already available in Claude Code"
+    }
+  ],
+  "repaired_frontmatter": [
+    {
+      "skill": "buyer-list",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "catalyst-calendar",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "check-model",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "cim-builder",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "client-report",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "client-review",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "dd-checklist",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "dd-meeting-prep",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "deal-screening",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "deal-sourcing",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "deal-tracker",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "earnings-preview",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "financial-plan",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "ic-memo",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "idea-generation",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "investment-proposal",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "merger-model",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "model-update",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "morning-note",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "portfolio-monitoring",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "portfolio-rebalance",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "process-letter",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "returns-analysis",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "sector-overview",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "tax-loss-harvesting",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "teaser",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "thesis-tracker",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "unit-economics",
+      "category": "02-finance-accounting"
+    },
+    {
+      "skill": "value-creation-plan",
+      "category": "02-finance-accounting"
+    }
+  ],
+  "renamed": [
+    {
+      "skill": "comps-analysis",
+      "category": "02-finance-accounting",
+      "upstream_name": "fsi-comps-analysis",
+      "valid": true
+    },
+    {
+      "skill": "spglobal-earnings-preview",
+      "category": "02-finance-accounting",
+      "upstream_name": "earnings-preview-single",
+      "valid": true
+    },
+    {
+      "skill": "spglobal-funding-digest",
+      "category": "02-finance-accounting",
+      "upstream_name": "funding-digest",
+      "valid": true
+    },
+    {
+      "skill": "spglobal-tear-sheet",
+      "category": "02-finance-accounting",
+      "upstream_name": "tear-sheet",
+      "valid": true
+    },
+    {
+      "skill": "strip-profile",
+      "category": "02-finance-accounting",
+      "upstream_name": "fsi-strip-profile",
+      "valid": true
+    },
+    {
+      "skill": "resume-generator",
+      "category": "03-human-resources",
+      "upstream_name": "tailored-resume-generator",
+      "valid": true
+    },
+    {
+      "skill": "account-research-common-room",
+      "category": "05-sales",
+      "upstream_name": "account-research",
+      "valid": true
+    },
+    {
+      "skill": "call-prep-common-room",
+      "category": "05-sales",
+      "upstream_name": "call-prep",
+      "valid": true
+    },
+    {
+      "skill": "prospect-apollo",
+      "category": "05-sales",
+      "upstream_name": "prospect",
+      "valid": true
+    },
+    {
+      "skill": "prospect-common-room",
+      "category": "05-sales",
+      "upstream_name": "prospect",
+      "valid": true
+    },
+    {
+      "skill": "kaizen",
+      "category": "07-operations",
+      "upstream_name": "kaizen:kaizen",
+      "valid": false
+    },
+    {
+      "skill": "software-architecture",
+      "category": "08-it-engineering",
+      "upstream_name": "ddd:software-architecture",
+      "valid": false
+    }
+  ],
+  "deduped": [
+    {
+      "skill": "vendor-management",
+      "category": "12-procurement-supply-chain",
+      "kept_from": "07-operations"
+    }
+  ]
+}
