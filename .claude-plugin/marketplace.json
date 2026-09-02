@@ -1,0 +1,17 @@
+{
+  "name": "bvmadnani-skills",
+  "owner": { "name": "bvmadnani" },
+  "description": "Corporate role skills and PPT design styles, installable in every project.",
+  "version": "1.0.0",
+  "plugins": [
+    {
+      "name": "business-skills",
+      "displayName": "Business & PPT Skills",
+      "source": "./",
+      "description": "156 role-based corporate skills (finance, sales, HR, legal, ops, product, data, procurement) plus 6 presentation design styles.",
+      "version": "1.0.0",
+      "category": "productivity",
+      "license": "MIT"
+    }
+  ]
+}

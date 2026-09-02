@@ -14,18 +14,35 @@ up as project skills (`.claude/skills/<name>/SKILL.md`).
 
 ## Making them available everywhere
 
-Skills resolve from three places, most specific first:
+The repo doubles as a **Claude Code plugin marketplace** (`.claude-plugin/marketplace.json`).
+Installing the plugin once makes all 162 skills available in **every project on that machine**,
+in every future session — no per-project copying:
 
-1. **Project** — `.claude/skills/` in the repo. Active in this project only; what is committed here.
-2. **User** — `~/.claude/skills/`. Active in every project on that machine, but **not** persisted
-   in an ephemeral Claude Code on the web container. Install with:
-   ```sh
-   bash .claude/skills/install-corporate-skills.sh
-   ```
-3. **Account** — skills uploaded under claude.ai → Settings → Capabilities → Skills sync down to
-   `~/.claude/skills/synced/` in every session and surface (web, desktop, CLI, Cowork). This is the
-   only path that genuinely covers "all projects, all conversations, all sessions"; it has to be
-   done from the claude.ai UI, not from a session.
+```sh
+claude plugin marketplace add bvmadnani-boop/smoe-saas
+claude plugin install business-skills@bvmadnani-skills
+```
+
+The plugin's source is the repo root and its `skills` field points at this very directory, so
+there is no second copy of the skills — the plugin and the project-level install read the same files.
+Skills arrive namespaced as `business-skills:<name>` (e.g. `business-skills:dcf-model`).
+
+Until this branch is merged, pin it: `claude plugin marketplace add bvmadnani-boop/smoe-saas@claude/ppt-design-skills-setup-wlkifz`.
+
+Update everything later with `claude plugin marketplace update bvmadnani-skills`.
+
+### The other two scopes
+
+| Scope | Covers | How |
+| --- | --- | --- |
+| Plugin (above) | Every project, every session, one machine | `claude plugin install` — **recommended** |
+| Project — `.claude/skills/` | This repo only, zero config | Already committed; works with no install |
+| User — `~/.claude/skills/` | Every project, one machine | `bash .claude/skills/install-corporate-skills.sh` |
+
+For claude.ai itself — web chats, Projects, Cowork, mobile — skills must be uploaded under
+**claude.ai → Settings → Capabilities → Skills**. Those sync down to `~/.claude/skills/synced/`
+in every session and on every surface. That upload can only be done from the claude.ai UI,
+not from inside a session.
 
 ## PPT design styles
 

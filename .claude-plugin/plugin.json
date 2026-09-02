@@ -1,0 +1,11 @@
+{
+  "name": "business-skills",
+  "displayName": "Business & PPT Skills",
+  "version": "1.0.0",
+  "description": "156 role-based corporate skills plus 6 presentation design styles, normalized for Claude Code.",
+  "author": { "name": "bvmadnani" },
+  "repository": "https://github.com/bvmadnani-boop/smoe-saas",
+  "license": "MIT",
+  "keywords": ["finance", "sales", "hr", "legal", "operations", "product", "data", "procurement", "presentation", "pptx"],
+  "skills": "./.claude/skills/"
+}

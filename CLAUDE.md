@@ -28,7 +28,17 @@ product, data, customer success, procurement) from
 They trigger on their own descriptions — use them whenever a request matches, in this
 project or any other. `.claude/skills/INDEX.corporate.md` lists them all by role.
 
-To make them available outside this repository, run
-`bash .claude/skills/install-corporate-skills.sh` (installs to `~/.claude/skills`,
-covering every project on that machine). See `.claude/skills/README.md` for the
-account-level option that covers every session and surface.
+## Using these skills in other projects
+
+This repo is also a Claude Code plugin marketplace. One install makes all 162 skills
+available in every project on a machine:
+
+```sh
+claude plugin marketplace add bvmadnani-boop/smoe-saas
+claude plugin install business-skills@bvmadnani-skills
+```
+
+They then appear as `business-skills:<name>`. The plugin reads `.claude/skills/`
+directly, so there is only ever one copy. See `.claude/skills/README.md` for the
+other scopes (user-level script, and the claude.ai account upload that covers
+web chats, Projects and Cowork).
